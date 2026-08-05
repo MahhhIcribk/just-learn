@@ -1,0 +1,33 @@
+--Media por departamento
+with media_departamento as(
+    select f.id_departamento,
+    round(avg(f.salario_base),2) as media_salarial,
+    count(*) as total_funcionario
+    from funcionario f 
+    where f.id_departamento
+)
+select
+d.mn_departamento
+m.total_funcionario
+m.media_salarial
+from departamento d
+join media_salarial m on m.id_departamento = d.ID_DEPARTAMENTO
+
+-- Pagamento máximo e o pagamento realizado a um funcionário
+WITH resumo_pagamento as(
+    select
+    p.id_funcionario,
+    max(p.vl_pagamento) as maior,
+    min(p.vl_pagamento) as menor,
+    count(p.id_pagamento) as qtd_pgtos
+    from pagamentos p
+    group by p.ID_FUNCIONARIO
+)
+
+select
+    f.mn_funcionario,
+    r.qtd_pgtos,
+    r.menor
+    r.maior
+from funcionario f
+join resumo_pagamento r on r.id_funcionario = f.ID_FUNCIONARIO
