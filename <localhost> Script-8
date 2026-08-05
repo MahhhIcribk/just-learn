@@ -31,3 +31,35 @@ select
     r.maior
 from funcionario f
 join resumo_pagamento r on r.id_funcionario = f.ID_FUNCIONARIO
+
+
+--cte 1 - calcula o total pago a cada funcionario
+total_pago_func as(
+    select
+    p.id_funcionario,
+    sum(p.vl_pagamento) as valor_total
+    from pagamento p
+    group by p.ID_FUNCIONARIO
+),
+--cte 2 - identifica departamentos com mais de 5 pessoas
+maiores_deptos as(
+    select
+    f.id_departamento,
+    count(*) as qtd_funcionarios
+    from funcionario f
+    where f.id_departamento
+    group by f.id_departamento
+    having count(*) > 5
+)
+
+-- consulta principal
+select
+d.mn_departamento,
+md.qtd_funcionarios,
+f.mn_funcionario,
+tpf.valor_total
+from funcionario f
+join departamento d on d.ID_DEPARTAMENTO = f.ID_DEPARTAMENTO
+join maiores_deptos md on md.id_departamento = f.ID_DEPARTAMENTO
+join total_pago_func tpf.id_funcionario = f.ID_FUNCIONARIO
+order by md.qtd_funcionarios desc, tpf.valor_total desc
