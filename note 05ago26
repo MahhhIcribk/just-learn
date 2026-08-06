@@ -1,0 +1,114 @@
+logica avancada - 05ago26
+
+Funcoes e  arrayas tipadas
+: dois pontos -- depois colocar nosso tipo
+string
+number
+boolean
+any - tipo proibido
+
+efeito domino
+1. input
+2. Operacao JS
+3. Concatenacao oculta
+4. calculo final
+
+Funcao do prompt
+
+string | null
+
+
+Number => conversao
+number => tipo
+
+let n3 :number= 0, n4 :number= 0 ; //fa diferenca ter ou nao o espaco entre o ":" e "="
+
+
+function no js 
+funcoes sem parametro sem retorno
+
+escopo global
+tipos de insercoes
+funcoes.ts --- arquivo
+ const soma = (v1: number, v2: number) : number => {//nao deveria ser em ingles
+    return v1+v2;
+}
+
+const mediaSoma = (media: number) : number =>{
+    return media/2;
+}
+
+//catastroe
+
+alert(
+    mediaSoma(
+        soma(12,15)
+    )
+)
+
+//function somar(a: number, b: number): number
+
+//parametro opicional
+const somar = (v1: number, v2: number,v3?:number) : number =>{//nesse caso ele se limita a apenas esses tres valores
+// o interrogação no meio da funcao torna opcional
+    if(v3 == undefined){
+        return v1+v2;
+    }else{
+        return v1+v2+v3;
+    }
+}
+
+alert{somar(1,2)}
+alert{somar(1,2,3)}
+//faz difernca ter ou nao ponto e virgula
+//operador implicido
+
+const somar = (v1: number, v2: number,v3?:number) : number => (v3==undefined)? v1+v2 : v1+v2+v3; 
+//reducao de codigo que da a mesma coisa que o codigo extenso de cima
+
+
+string e sting array sao diferentes
+          multiplos valores´
+
+
+//array 
+let nomes : string[]|null[] = [];
+
+for (let index = 0; index < 3; index++) {
+    nomes[index] = (prompt("Informe o nome" +(index+1)+": "))  //.push pra que
+}
+ // mostrando as diferentes formas que o retorno do prompt vai,  creio eu
+//quando o usuaro digita "" ou "null" vai sair 0 e quando a letra vai sair um NaN
+
+const verificaNaoVazio = (valor:string|null):boolean => (valor!=="")? true:false; // vai verifica se o valor e valido
+
+const verificaNaoNull = (valor:string|null):boolean => (valor!==null)? true:false;
+
+const verificaSeNumero = (valor:string|null):boolean => (!isNaN(Number(valor)))? true:false; // vai verifica se o valor e valido
+
+//is not a number funcao que verifica se o valor nao e not a number nesse caso se o valor se for um numero vai ser falso e ao contro se nao for mas no caso eu quro ao contrari desse resultaso
+
+//let numeros : number[]|null[] = []
+
+const validaValoresNumericos = (valor:string|null):number => {
+do {
+    valor = prompt("Informe o valor: ");
+    if(!(verificaNaoVazio(valor) && verificaNaoNull(valor) && verificaSeNumero(valor)));{
+        alert("Informe somente valores numericos")
+    }
+} while (!(verificaNaoVazio(valor) && verificaNaoNull(valor) && verificaSeNumero(valor)));
+
+return Number(valor)
+
+}
+
+let numero1:number, numero2:number;
+
+numero1 = validaValoresNumericos(prompt("Informe o valor"))
+numero2 = validaValoresNumericos(prompt("Informe o valor"))
+//resto do codigo no git hub
+//let valor : string|null;
+
+
+
+arrays.js -- arquivo
